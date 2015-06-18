@@ -8,9 +8,8 @@
 ####################################################################################################
 
 ###
-# Get the Username of the logged in user
-###
-loggedInUser=`/bin/ls -l /dev/console | /usr/bin/awk '{ print $3 }'`
+###Get the currently logged in user, in a more Apple approved way
+loggedInUser=`python -c 'from SystemConfiguration import SCDynamicStoreCopyConsoleUser; import sys; username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]; username = [username,""][username in [u"loginwindow", None, u""]]; sys.stdout.write(username + "\n");'`
 
 echo "$loggedInUser..."
 
